@@ -1,0 +1,22 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+Enterprise_Boundary(c0, "Издательство научной литературы") {
+    System(scitranslate, "SciTranslate", "ML система автоматического перевода научных статей с ru-RU -> en-EN")
+    System(archive, "Архив научных статей", "Система хранения научных статей клиента: ru-RU - en-EN")
+    System(datacollection, "Web crawler", "Система сбора и систематизации научных статей с открытых источников: ru-RU - en-EN")
+    Person(translator, "Переводчик", "Авторизованный пользователь с доступом к инструменту итеративного либо полного перевода")
+    Person(editortranslator, "Редактор", "Авторизованный пользователь с доступом к результату работы переводчика")
+    Person(datascientist, "ML-специалист", "Дообучение и подготовка данных для NLP модели")
+}
+
+
+System_Ext(articles, "Публичные статьи", "Оцифрованные научные статьи разных издательских домов")
+
+Rel_R(translator, scitranslate, "Использует инструмент перевода", "raw document")
+Rel_R(scitranslate, editortranslator, "Получает уведомления", "translated work")
+Rel_U(datascientist, scitranslate, "Работа с NLLB", "continuous training")
+Rel_D(datascientist, archive, "Сбор и подготовка данных", "data preparation")
+Rel_L(datacollection, datascientist, "Получает уведомления", "get notify")
+Rel_R(datacollection, articles, "Поиск статей", "search request")
+@enduml
