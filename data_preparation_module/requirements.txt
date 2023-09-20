@@ -1,0 +1,6 @@
+pandas~=2.1.0
+pygsheets~=2.0.6
+fasttext~=0.9.2
+pydantic~=2.3.0
+click==8.1.7
+python-docx==0.8.11
