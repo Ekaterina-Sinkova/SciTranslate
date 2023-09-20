@@ -6,6 +6,8 @@ Data preparation module for NLLB fine-tuning
 ## Module Structure
 ```
 data_preparation_module
+├── data
+│   └── raw                     -> folder for subdirectories with pairs of articles
 ├── data_preparation            -> submodule for data preparation for labeling
 │   ├── __init__.py
 │   ├── data_preparation.py     
@@ -13,11 +15,9 @@ data_preparation_module
 ├── language_identifier         -> submodule for determining the input-text language
 │   ├── __init__.py
 │   └── identify_language.py
-├── .gitignore
 ├── client_secret.json          -> Google API authentification data
 ├── requirements.txt
-├── setup.py
-└── run_data_preparation.py     -> entrypoint script
+└── setup.py
 ```
 
 1) Place folders with original and translated papers (.docx ONLY) into the data/raw/ directory. 
@@ -32,6 +32,6 @@ pip install .
 ```python
  data-preparation --doc_url=https://docs.google.com/spreadsheets/d/1ZsTxRosThq-1vGT8tRaLm0m-E826f_7BlQJ08QaK9kI
 ```
-A separate tab will be created for every folder in the data/raw/ directory. Each tab contains two columns "ru" and "en" with pairs of tokenized sentences in corresponding rows.
+A separate tab will be created in the spreadsheet for each folder in the data/raw/ directory. Each tab will contain two columns "ru" and "en" with tokenized sentences in the corresponding rows.
 
 

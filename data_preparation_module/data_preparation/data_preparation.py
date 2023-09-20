@@ -5,7 +5,6 @@ from pathlib import Path
 import pandas as pd
 import pygsheets
 from docx import Document
-
 from language_identifier.language_identifier import LanguageIdentifier
 
 language_identifier = LanguageIdentifier()
@@ -38,7 +37,6 @@ def split_text_into_sent(text: str, lang: str) -> list:
 
 def get_sentences_for_doc(filepath: str) -> dict:
     """Читает документ и определяет его язык. Токенизирует текст на предложения
-     Arguments:
          """
 
     doc = Document(filepath)
