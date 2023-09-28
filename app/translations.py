@@ -1,7 +1,7 @@
 class TranslationService:
-    def translate_sentences(self, sentences):
+    def translate_sentences(self, sentences: list):
         # Your sentence translation code goes here
         # Example: Translate the sentences using a translation service
 
         # Replace with actual implementation
-        pass
+        return 'translation: ' + ' '.join(sentences)
