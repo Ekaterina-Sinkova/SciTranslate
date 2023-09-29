@@ -10,6 +10,10 @@ def get_binary_file_downloader_html(bin_data, file_label, button_text):
     b64 = base64.b64encode(bin_data).decode()
     return f'<a href="data:application/octet-stream;base64,{b64}" download="{file_label}">{button_text}</a>'
 
+#Fastapi
+url = "http://localhost:8000"
+headers = {"Content-Type":"application/json"}
+
 st.title("SciTranslate Web Service")
 st.markdown("---")
 
@@ -31,7 +35,7 @@ if uploaded_file:
             response = requests.post("http://localhost:8000/translate_file", files={"file": uploaded_file})
 
             if response.status_code == 200:
-                st.markdown(get_binary_file_downloader_html(response.content, "Translated_Output.docx",
+                st.markdown(get_binary_file_downloader_html(response.content, f"{uploaded_file.name}_eng.docx",
                                                             "Download Translated File"), unsafe_allow_html=True)
             else:
                 st.error("Error processing the file. Please try again.")
@@ -39,13 +43,10 @@ if uploaded_file:
 # Text input section
 st.subheader("Translate Russian text")
 user_input_text = st.text_area("Enter Russian text for translation and press Ctrl + Enter")
-
-#translation_output = st.empty()
 if user_input_text:
-    url = "http://localhost:8000/translate_text"
-    headers = {"Content-Type":"application/json"}
+    # Make a POST request to the FastAPI server to process the text
     data = {"text": user_input_text}
-    response = requests.post(url, headers=headers, data=json.dumps(data))
+    response = requests.post(f"{url}/translate_text", headers=headers, data=json.dumps(data))
     if response.status_code == 200:
         response.encoding = 'utf-8'
         st.text_area("Translation", value=response.text)
