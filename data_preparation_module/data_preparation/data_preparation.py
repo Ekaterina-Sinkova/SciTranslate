@@ -45,6 +45,7 @@ def get_sentences_for_doc(filepath: str) -> dict:
     for para in doc.paragraphs:
         paragraphs.append(para.text.strip())
         fulltext += para.text
+    fulltext = ''.join([i for i in fulltext if (i.isalpha() or i == ' ')]).lower()[0:100]
 
     try:
         lang = language_identifier.predict([fulltext])[0].iso_code
