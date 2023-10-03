@@ -11,7 +11,7 @@ class CFG:
     nllb_name = "facebook/nllb-200-distilled-600M"
     nllb_tokenizer_path = 'pretrained_models/nllb_tokenizer_rus'
     nllb_model_path = 'pretrained_models/nllb_model'
-    access_name = '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'  # delete before prod
+    access_name = ''  # delete before prod
 
 
 class ModelOrchestrator:

@@ -1,5 +1,3 @@
-from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
-from app.model_downloader import CFG, ModelOrchestrator
 
 
 class NLLBTranslator:

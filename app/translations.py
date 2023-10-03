@@ -9,17 +9,33 @@ class TranslationService:
         tokenizer, model = ModelOrchestrator.load_nllb_model()
         self.tokenizer = tokenizer
         self.model = model
+
+        self.translator_name = 'nllb'  # default
         self.translator = None
         self.set_nllb_translator()
         # If we want to switch model we need to change the method by set_ and in perform_translation as well
 
-    def set_nllb_translator(self, target_lang: str = 'eng_Latn'):
+    def switch_translator(self, translator_name, **kwargs):
+        # to be changed
+        names = {'nllb': self.set_nllb_translator,
+                 'g': self.set_g_translator}
+        self.translator_name = translator_name
+        self.translator = names[translator_name](kwargs)
+
+    def set_nllb_translator(self, target_lang: str = 'eng_Latn', **kwargs):
         self.translator = NLLBTranslator(self.tokenizer, self.model, target_lang=target_lang)
 
-    def set_g_tranlsator(self):
+    def set_g_translator(self, **kwargs):
         self.translator = Translator()
 
-    def nllb_translate(self, sentence):
+    def default_translate(self, sentence, **kwargs):
+        # to be changed
+        actions = {'nllb': self.nllb_translate,
+                   'g': self.g_translate}
+        return actions[self.translator_name](sentence, **kwargs)
+
+
+    def nllb_translate(self, sentence, *args, **kwargs):
         return self.translator.translate(sentence)
 
     def g_translate(self, sentence, source_lang='ru', target_lang='en'):
@@ -39,7 +55,7 @@ class TranslationService:
         """
         translated_sentences = []
         for sentence in sentences:
-            result = self.nllb_translate(sentence)
+            result = self.default_translate(sentence)
             translated_sentences.append(result)
         return translated_sentences
 
