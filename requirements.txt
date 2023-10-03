@@ -20,6 +20,7 @@ google-auth==2.23.0
 google-auth-httplib2==0.1.1
 google-auth-oauthlib==1.1.0
 googleapis-common-protos==1.60.0
+googletrans==4.0.0rc1
 h11==0.14.0
 httplib2==0.22.0
 idna==3.4
@@ -70,7 +71,9 @@ tenacity==8.2.3
 toml==0.10.2
 tomli==2.0.1
 toolz==0.12.0
+torch==2.0.1
 tornado==6.3.3
+transformers==4.33.3
 typing_extensions==4.8.0
 tzdata==2023.3
 tzlocal==5.0.1
@@ -80,3 +83,4 @@ uvicorn==0.23.2
 validators==0.22.0
 watchdog==3.0.0
 zipp==3.17.0
+
